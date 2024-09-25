@@ -11,6 +11,7 @@ mod header_custom_keyvalue;
 mod middleware_message;
 mod read_middleware_custom_header;
 mod set_middleware_custom_header;
+mod error_status_code;
 
 use hello_world::hello_world;
 use msg_body_json::msg_body_json;
@@ -22,6 +23,7 @@ use header_custom_keyvalue::header_custom_keyvalue;
 use middleware_message::middleware_message;
 use read_middleware_custom_header::read_middleware_custom_header;
 use set_middleware_custom_header::set_middleware_custom_header;
+use error_status_code::error_status_code;
 
 #[derive(Clone)]
 pub struct SharedData {
@@ -51,4 +53,5 @@ pub fn create_routes() -> Router {
         .route("/middleware_message", get(middleware_message))  // curl http://localhost:3000/middleware_message
         .layer(cors)
         .layer(Extension(shared_data))
+        .route("/error_status_code", get(error_status_code))  // curl -I http://localhost:3000/error_status_code
 }
