@@ -13,6 +13,7 @@ mod read_middleware_custom_header;
 mod set_middleware_custom_header;
 mod error_status_code;
 mod return_201_status_code;
+mod return_json;
 
 use hello_world::hello_world;
 use msg_body_json::msg_body_json;
@@ -26,6 +27,7 @@ use read_middleware_custom_header::read_middleware_custom_header;
 use set_middleware_custom_header::set_middleware_custom_header;
 use error_status_code::error_status_code;
 use return_201_status_code::return_201_status_code;
+use return_json::return_json;
 
 #[derive(Clone)]
 pub struct SharedData {
@@ -57,4 +59,5 @@ pub fn create_routes() -> Router {
         .layer(Extension(shared_data))
         .route("/error_status_code", get(error_status_code))  // curl -I http://localhost:3000/error_status_code
         .route("/return_201_status_code", post(return_201_status_code))  // curl -IX POST http://localhost:3000/return_201_status_code
+        .route("/return_json", get(return_json))  // curl http://localhost:3000/return_json
 }
